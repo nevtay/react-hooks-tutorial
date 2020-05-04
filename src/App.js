@@ -9,7 +9,7 @@ const App = () => {
     password: '',
     firstName: '',
   });
-  const {data, loading} = useFetch('http://numbersapi.com/43/trivia');
+
   // const [values2, handleChange2] = useForm({
   //   firstName: '',
   //   lastName: '',
@@ -40,6 +40,9 @@ const App = () => {
     console.log('mount 2');
   });
 
+  const [count, setCount] = useState(0);
+  const {data, loading} = useFetch(`http://numbersapi.com/${count}/trivia`);
+
   return (
     <div>
       <>
@@ -48,7 +51,11 @@ const App = () => {
         Button Here
         </button>
         {showHello ? <Hello /> : ''} */}
-        <div>{loading ? 'LOADING...' : data}</div>
+        <div>{!data ? 'LOADING...' : data}</div>
+        <div>count: {count}</div>
+        <button
+          onClick={() => setCount((c) => c + 1)}
+        >Increment</button>
         <input name="email" value={values.email} onChange={handleChange} />
         <input
           name="firstName"
