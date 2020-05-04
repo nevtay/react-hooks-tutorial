@@ -10,6 +10,14 @@ const App = () => {
     firstName: '',
   });
 
+  const [count, setCount] = useState(() => JSON.parse(localStorage.getItem('count')));
+  const {data, loading} = useFetch(`http://numbersapi.com/${count}/trivia`);
+
+  useEffect(() => {
+    // localstorage: first argument is Object "key" property)
+    localStorage.setItem('count', JSON.stringify(count));
+  }, [count]);
+
   // const [values2, handleChange2] = useForm({
   //   firstName: '',
   //   lastName: '',
@@ -40,9 +48,6 @@ const App = () => {
     console.log('mount 2');
   });
 
-  const [count, setCount] = useState(0);
-  const {data, loading} = useFetch(`http://numbersapi.com/${count}/trivia`);
-
   return (
     <div>
       <>
@@ -51,6 +56,7 @@ const App = () => {
         Button Here
         </button>
         {showHello ? <Hello /> : ''} */}
+        {console.log(localStorage)}
         <div>{!data ? 'LOADING...' : data}</div>
         <div>count: {count}</div>
         <button
