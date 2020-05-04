@@ -10,3 +10,10 @@ export const Hello = () => {
   }, []);
   return <div>Hello!</div>;
 };
+useEffect(() => {
+  console.log('render');
+
+  return () => {
+    console.log('unmount');
+  };
+}, []);
